@@ -10,6 +10,7 @@ const HomeIcon = ({ size = 24, fill = "none" }) => (
   </svg>
 )
 
+// Icono Librería
 const LibraryIcon = ({ size = 24 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
@@ -19,6 +20,7 @@ const LibraryIcon = ({ size = 24 }) => (
   </svg>
 )
 
+// Icono Cerca
 const SearchIcon = ({ size = 20 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="11" cy="11" r="8" />
@@ -26,6 +28,7 @@ const SearchIcon = ({ size = 20 }) => (
   </svg>
 )
 
+// Icono Usuario
 const UserIcon = ({ size = 20 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -33,6 +36,7 @@ const UserIcon = ({ size = 20 }) => (
   </svg>
 )
 
+// Icono añadir
 const PlusIcon = ({ size = 16 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <line x1="12" y1="5" x2="12" y2="19" />

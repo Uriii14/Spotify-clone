@@ -5,6 +5,8 @@ import MainLayout from './layouts/MainLayout'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
+
+import NewUserHome from './pages/NewUserHome'
 import { authService } from './services/api'
 
 function App() {
@@ -22,6 +24,13 @@ function App() {
           if (savedUser) {
             setUser(savedUser)
             setIsLoggedIn(true)
+            
+            // Verificar si es un usuario recién registrado
+            const justRegistered = localStorage.getItem('justRegistered')
+            if (justRegistered === 'true') {
+              setIsNewUser(true)
+
+            }
           }
         }
       } catch (error) {
@@ -50,6 +59,15 @@ function App() {
   const handleLogin = (userData) => {
     setUser(userData)
     setIsLoggedIn(true)
+    setIsNewUser(false) // Los usuarios que hacen login no son nuevos
+    localStorage.removeItem('justRegistered') // Limpiar flag si existe
+  }
+
+  // Función para completar el onboarding del nuevo usuario
+  const handleCompleteNewUserOnboarding = () => {
+    setIsNewUser(false)
+
+    localStorage.removeItem('justRegistered')
   }
 
   // Función para redirigir al login desde la landing page
@@ -69,6 +87,9 @@ function App() {
     authService.logout()
     setUser(null)
     setIsLoggedIn(false)
+    setIsNewUser(false)
+
+    localStorage.removeItem('justRegistered')
   }
 
   // Mostrar loading mientras verifica autenticación
@@ -108,8 +129,33 @@ function App() {
       ) : (
         <MainLayout user={user} onLogout={handleLogout}>
           <Routes>
-            <Route path="/" element={<Home user={user} />} />
-            <Route path="/*" element={<Home user={user} />} />
+            <Route 
+              path="/" 
+              element={
+                isNewUser ? (
+                  <NewUserHome 
+                    user={user} 
+                    onContinue={handleCompleteNewUserOnboarding} 
+                  />
+                ) : (
+                  <Home user={user} />
+                )
+              } 
+            />
+            <Route 
+              path="/*" 
+              element={
+                isNewUser ? (
+                  <NewUserHome 
+                    user={user} 
+                    onContinue={handleCompleteNewUserOnboarding} 
+                  />
+                ) : (
+                  <Home user={user} />
+                )
+              } 
+
+/>
           </Routes>
         </MainLayout>
       )}
